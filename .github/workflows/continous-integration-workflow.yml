@@ -1,9 +1,5 @@
 name: CI Workflow
 on:
-  # I believe that "push" will run when the code enters master
-  push:
-    branches:
-      - master
   # And that this will cause it to run when the PR is opened
   pull_request:
     branches:
