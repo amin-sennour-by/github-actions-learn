@@ -1,12 +1,31 @@
 name: CI Workflow
 on:
   # And that this will cause it to run when the PR is opened
+  push:
+
   pull_request:
     branches:
       - master
 
 
 jobs:
+  say_hi:
+    name: Great the User
+    runs-on: ubuntu-latest
+    steps:
+      # To use this repository's private action,
+      # you must check out the repository
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Hello world action step
+        uses: ../actions/hello-world-javascript-action # Uses an action in the root directory
+        id: hello
+        with:
+          who-to-greet: 'Mona the Octocat'
+      # Use the output from the `hello` step
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.time }}"
+
   run_tests:
     name: Test Merge
     runs-on: ubuntu-latest
